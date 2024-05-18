@@ -12,7 +12,7 @@ const incrementAction = { type: INCREMENT }; // type is required
 const increment = () => ({ type: INCREMENT });
 const add = (amount) => ({ type: ADD, payload: amount });
 
-const reducer = (state, action) => {
+const reducer = (state = initialState, action) => {
   if (action.type === INCREMENT) {
     const value = state.value + 1;
     return { value };
@@ -24,4 +24,7 @@ const reducer = (state, action) => {
 };
 
 const store = createStore(reducer);
-console.log(store);
+
+store.dispatch(increment());
+
+console.log(store.getState());
