@@ -1,4 +1,4 @@
-import { createStore } from "redux";
+import { bindActionCreators, createStore } from "redux";
 
 const initialState = { value: 0 };
 
@@ -25,6 +25,17 @@ const reducer = (state = initialState, action) => {
 
 const store = createStore(reducer);
 
-store.dispatch(increment());
+//const subscriber = () => console.log('SUBSCRIBER' + store.getState());
+const subscriber = () =>
+  console.log("SUBSCRIBER: " + JSON.stringify(store.getState(), null, 2));
+store.subscribe(subscriber);
 
-console.log(store.getState());
+const actions = bindActionCreators({ increment, add }, store.dispatch);
+// console.log(actions)
+// store.dispatch(increment());
+// store.dispatch(increment());
+// store.dispatch(add(1000));
+
+actions.increment();
+actions.increment();
+actions.add(1004);
